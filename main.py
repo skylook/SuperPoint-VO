@@ -1,3 +1,7 @@
+import sys
+print(sys.path)
+sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+
 import numpy as np
 import cv2
 
@@ -19,9 +23,9 @@ else:
     exit()
 
 # pose_path
-pose_path = '/home/user/Desktop/dataset/poses/' + Num + '.txt'
-vo = VisualOdometry(cam4, pose_path)
-sp_vo = sp_VisualOdometry(cam4, pose_path)
+pose_path = './Data/poses/' + Num + '.txt'
+vo = VisualOdometry(cam0_2, pose_path)
+sp_vo = sp_VisualOdometry(cam0_2, pose_path)
 
 traj = np.zeros((600, 600, 3), dtype=np.uint8)
 
@@ -35,8 +39,10 @@ sp_feature_nums = []
 norm_feature_nums = []
 
 for img_id in range(4541):
-    img = cv2.imread('/home/user/Desktop/dataset/sequences/' +
-                     Num + '/image_0/' + str(img_id).zfill(6) + '.png', 0)
+    img = cv2.imread('./Data/' +
+                     Num + '/image_2/' + str(img_id).zfill(6) + '.png', 0)
+
+    # print('img.shape = {}'.format(img.shape))
 
     # === superpoint ==============================
     sp_vo.update(img, img_id)
